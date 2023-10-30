@@ -1,38 +1,3 @@
-<?php
-
-// **********************  1  ************************** 
-// ========== tangkap nilai tinggi_badan dan berat_badan yang ada pada form html
-// silakan taruh code kalian di bawah
-    $tinggi = isset($_POST["tinggi_badan"]);
-    $berat = isset($_POST["berat_badan"]);
-
-// **********************  1  ************************** 
-
-
-// **********************  2  ************************** 
-// ========== buatkan sebuah perkondisian di mana 
-// tinggi_badan atau $berat_badan tidak boleh kosong nilainya, kalau kosong buatkanlah pesan error
-// silakan taruh code kalian di bawah
-    
-
-if($tinggi = null || $berat=null){
-    $error = "Tinggi badan dan berat badan tidak boleh kosong";
-    echo $error ;
-}
-
-// **********************  2  ************************** 
-
-
-// **********************  3  ************************** 
-// ========== buatkanlah perkondisian di mana Jika kesalahan Error-nya "empty", 
-// masukkan perhitungan BMI sesuai dengan rumus yang tertera pada jurnal
-// silakan taruh code kalian di bawah
-if($_POST['button']){
-
-
-}
-// **********************  3  ************************** 
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -43,9 +8,7 @@ if($_POST['button']){
     <title>Kalkulator BMI</title>
     <link rel="stylesheet" href="css.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-
 </head>
-
 <body>
     <div class="row">
         <div class="col-md-4"></div>
@@ -64,42 +27,45 @@ if($_POST['button']){
                         </div>
                         <button type="submit" class="btn btn-primary mb-3 mt-3 w-100" name="button">Hitung BMI</button>
                     </form>
-
-                    <!--  **********************  4  **************************     -->
-                    <!-- Hasilnya perhitungan BMI taruh di sini yaaa!! 😊 -->
-                    <!-- silakan taruh code kalian di bawah -->
                     <?php
+                    if ($_POST){
+                        $tinggi = $_POST["tinggi_badan"];
+                        $berat = $_POST["berat_badan"];
+                        $error = "Tinggi badan dan berat badan tidak boleh kosong";
+                        if($tinggi != null || $berat != null){
+                            $tinggi_1 = $tinggi/100;
+                            $bmi = $berat/($tinggi_1*$tinggi_1);
+                            if ($bmi <= 18.4){
+                                $status = "underweight";
+                            } elseif ($bmi > 18.5 && $bmi < 24.9){
+                                $status = "normal";
+                            } elseif ($bmi > 25.0 && $bmi < 39.9){
+                                $status = "overweight";
+                            } elseif ($bmi >= 40){
+                                $status = "obese";
+                            }
+                            if (isset($_POST['button'])){
+                                echo "Tinggi Anda: $tinggi";
+                                echo "<br/>";
+                                echo "Berat Anda: $berat";
+                                echo "<br/>";
+                                echo "Status berat badan anda ialah: $status";
+                                echo "<br/>";
+                                echo "Dengan Index BMI: $bmi";
+                                
+                            }
+                            
+                            }
+                            if (empty($tinggi) || empty($berat)) {
+                                if (isset($_POST['button'])) {
+                                    $error = "Maaf tinggi badan atau berat badan tidak boleh kosong.";
+                                    echo $error;}
 
-                    if($tinggi != null || $berat != null){
-                    $tinggi_1 = $tinggi/100;
-                    $bmi = $berat/($tinggi_1*$tinggi_1);
-                    if ($bmi <= 18.4){
-                        $status = "underweight";
-                        echo $status;
-                    } elseif ($bmi > 18.5 && $bmi < 24.9){
-                        $status = "normal";
-                        echo $status;
-                    } elseif ($bmi > 25.0 && $bmi < 39.9){
-                        $status = "overweight";
-                        echo $status;
-                    } elseif ($bmi >= 40){
-                        $status = "obese";
-                        echo $status;
+                        
+                        } 
                     }
-                }
+
                     ?>
-                    <!--  **********************  4  **************************     -->
-                    <!--  **********************  5  **************************     -->
-                    <!-- Hasil pesan error nya taruh di sini yaaa!! 😊  -->
-                    <!-- silakan taruh code kalian di bawah -->
-                    <?php
-                    if($tinggi = null || $berat=null){
-                        echo $error ;
-                    }
-                    ?>  
-                    <!--  **********************  5  **************************     -->
-
-
                 </div>
             </div>
         </div>
